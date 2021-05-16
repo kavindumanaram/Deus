@@ -10,9 +10,9 @@ using Deus.Domain.Common;
 
 namespace Deus.Persistence.Common
 {
-    public class EFDbContext : DbContext
+    public class DeusContext : DbContext
     {
-        public EFDbContext()
+        public DeusContext()
             : base("name=DbConnectionString")
         {
         }

@@ -9,7 +9,7 @@ using Deus.Domain.Users;
 
 namespace Deus.Persistence.Configuration
 {
-    public class UserConfiguration : EntityTypeConfiguration<User>
+    public class UserConfiguration : EntityTypeConfiguration<Domain.Users.User>
     {
         public UserConfiguration()
         {

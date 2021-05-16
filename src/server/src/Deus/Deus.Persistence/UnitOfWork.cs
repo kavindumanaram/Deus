@@ -10,18 +10,18 @@ namespace Deus.Persistence
 {
     public class UnitOfWork : IDisposable
     {
-        private readonly EFDbContext context;
+        private readonly DeusContext context;
         private bool disposed;
         private Dictionary<string, object> repositories;
 
-        public UnitOfWork(EFDbContext context)
+        public UnitOfWork(DeusContext context)
         {
             this.context = context;
         }
 
         public UnitOfWork()
         {
-            context = new EFDbContext();
+            context = new DeusContext();
         }
 
         public void Dispose()

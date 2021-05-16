@@ -11,17 +11,16 @@ namespace Deus.Web.Controllers
 {
     public class UserController : Controller
     {
-        private UnitOfWork unitOfWork = new UnitOfWork();
-        private Repository<User> bookRepository;
-
-        public UserController()
+        private readonly IUserRepository _userRepository;
+        public UserController(IUserRepository userRepository)
         {
-            bookRepository = unitOfWork.Repository<User>();
+            _userRepository = userRepository;
         }
 
         public ActionResult Index()
         {
-            IEnumerable<User> books = bookRepository.Table.ToList();
+            IEnumerable<User> books = _userRepository.GetAllUsers();
+            int userCount = _userRepository.Count();
             return View(books);
         }
     }

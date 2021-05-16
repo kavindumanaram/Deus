@@ -8,34 +8,54 @@ using Deus.Domain.Common;
 
 namespace Deus.Persistence.Common
 {
-    public class Repository<T> where T :DomainEntity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : DomainEntity
     {
-        private readonly EFDbContext context;
-        private IDbSet<T> entities;
-        string errorMessage = string.Empty;
+        private readonly DeusContext _context;
+        //private IDbSet<T> entities;
+        //string errorMessage = string.Empty;
 
-        public Repository(EFDbContext context)
+        public Repository(DeusContext context)
         {
-            this.context = context;
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
+            this._context = context;
         }
 
-        public virtual IQueryable<T> Table
+        /// <summary>
+        /// Gets the context.
+        /// </summary>
+        public DeusContext Context
         {
             get
             {
-                return this.Entities;
+                return _context;
             }
         }
-        private IDbSet<T> Entities
+        //public virtual IQueryable<T> Table
+        //{
+        //    get
+        //    {
+        //        return this.Entities;
+        //    }
+        //}
+        //private IDbSet<T> Entities
+        //{
+        //    get
+        //    {
+        //        if (entities == null)
+        //        {
+        //            entities = context.Set<T>();
+        //        }
+        //        return entities;
+        //    }
+        //}
+
+        public int Count()
         {
-            get
-            {
-                if (entities == null)
-                {
-                    entities = context.Set<T>();
-                }
-                return entities;
-            }
+            return _context.Set<TEntity>().Count();
         }
     }
 }
